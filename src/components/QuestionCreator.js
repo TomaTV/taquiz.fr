@@ -25,8 +25,8 @@ export default function QuestionCreator({ onSubmit }) {
   const handleSubmit = () => {
     const validQuestions = questions.filter((q) => q.trim());
 
-    if (validQuestions.length < 3) {
-      alert("Please add at least 3 questions");
+    if (validQuestions.length < 1) {
+      alert("Please add at least 1 question");
       return;
     }
 
@@ -99,7 +99,7 @@ export default function QuestionCreator({ onSubmit }) {
           <div className="mb-4">
             <span className="text-sm text-gray-600">
               Questions: {questions.filter((q) => q.trim()).length}/10
-              {questions.filter((q) => q.trim()).length < 3 && " (minimum 3)"}
+              {questions.filter((q) => q.trim()).length < 1 && " (minimum 1)"}
             </span>
           </div>
 
