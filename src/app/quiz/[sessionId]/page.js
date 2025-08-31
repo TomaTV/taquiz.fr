@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useQuiz } from "@/hooks/useSocket";
 import { database } from "@/lib/firebase";
 import { ref, onValue, off, set } from "firebase/database";
-import QuizResults from '@/components/QuizResults';
+import QuizResults from "@/components/QuizResults";
 
 const GAME_STATES = {
   WAITING: "waiting",
@@ -33,8 +33,8 @@ export default function QuizSession() {
   // Rediriger si pas de joueur (accès direct à l'URL)
   useEffect(() => {
     if (!loading && !currentPlayer) {
-      console.log('No current player found, redirecting to home');
-      router.push('/');
+      console.log("No current player found, redirecting to home");
+      router.push("/");
     }
   }, [currentPlayer, loading, router]);
 
@@ -47,16 +47,19 @@ export default function QuizSession() {
       const data = snapshot.val();
       if (data) {
         setSessionData(data);
-        console.log('Session state changed to:', data.state);
-        
+        console.log("Session state changed to:", data.state);
+
         // Mettre à jour l'état local selon l'état Firebase
         setLocalGameState(data.state || GAME_STATES.WAITING);
-        
+
         // Fermer l'interface de création si on passe en answering ou results
-        if (data.state === GAME_STATES.ANSWERING || data.state === GAME_STATES.RESULTS) {
+        if (
+          data.state === GAME_STATES.ANSWERING ||
+          data.state === GAME_STATES.RESULTS
+        ) {
           setShowQuestionCreator(false);
         }
-        
+
         setQuestions(data.questions || []);
         setCurrentQuestionIndex(data.currentQuestionIndex || 0);
         setLoading(false);
@@ -124,14 +127,14 @@ export default function QuizSession() {
   const handleQuestionsSubmit = async (newQuestions) => {
     try {
       console.log("Submitting questions:", newQuestions);
-      
+
       // Vérifier que currentPlayer existe
       if (!currentPlayer || !currentPlayer.id) {
-        alert('Erreur: joueur non identifié. Retournez à l\'accueil.');
-        router.push('/');
+        alert("Erreur: joueur non identifié. Retournez à l'accueil.");
+        router.push("/");
         return;
       }
-      
+
       await addPlayerQuestions(
         params.sessionId,
         currentPlayer.id,
@@ -328,13 +331,15 @@ export default function QuizSession() {
                     onClick={handleStartQuiz}
                     className="w-full bg-gradient-to-r from-green-400 to-emerald-500 text-white font-semibold py-3 px-6 rounded-xl hover:from-green-500 hover:to-emerald-600 transition-all duration-200 shadow-lg"
                   >
-                    🚀 Démarrer le Quiz Maintenant ! ({totalQuestions} questions)
+                    🚀 Démarrer le Quiz Maintenant ! ({totalQuestions}{" "}
+                    questions)
                   </button>
                 )}
 
                 {currentPlayer?.isCreator && totalQuestions < 3 && (
                   <div className="text-gray-600 text-sm">
-                    Minimum 3 questions pour lancer (actuellement: {totalQuestions})
+                    Minimum 3 questions pour lancer (actuellement:{" "}
+                    {totalQuestions})
                   </div>
                 )}
               </>
@@ -409,8 +414,8 @@ export default function QuizSession() {
                     key={player.id}
                     className={`flex items-center space-x-2 p-3 rounded-xl border ${
                       playerAnswered
-                        ? "bg-green-50 border-green-200"
-                        : "bg-gray-50 border-gray-200"
+                        ? "bg-green-300 border-green-500"
+                        : "bg-gray-300 border-gray-500"
                     }`}
                   >
                     <div
@@ -418,7 +423,7 @@ export default function QuizSession() {
                         playerAnswered ? "bg-green-400" : "bg-gray-400"
                       }`}
                     ></div>
-                    <span className="text-sm font-medium truncate">
+                    <span className="text-sm font-medium truncate text-black">
                       {player.name}
                     </span>
                   </div>
