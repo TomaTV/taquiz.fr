@@ -17,7 +17,7 @@ export const metadata = {
   description:
     "Quiz de personnalité fun entre amis ! Découvre quel type d'amis tu as avec tes potes. Multijoueur en temps réel 🎮",
   keywords: "quiz, personnalité, amis, multijoueur, fun, type d'amis, jeu",
-  authors: [{ name: "esotericfawn" }],
+  authors: [{ name: "toma" }],
   metadataBase: new URL("https://taquiz.vercel.app"),
   openGraph: {
     title: "TAQuiz - Découvre tes amis ! 💕✨",
@@ -42,7 +42,7 @@ export const metadata = {
     title: "TAQuiz - Découvre ton type d'amis ! 💕✨",
     description:
       "Quiz de personnalité fun entre amis ! Multijoueur temps réel 🎮",
-    creator: "@esotericfawn",
+    creator: "@toma",
     images: ["/og-image.png"],
   },
 };
